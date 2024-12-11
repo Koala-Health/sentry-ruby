@@ -59,7 +59,7 @@ module Sentry
 
       def capture_exception(exception, env)
         Sentry.capture_exception(exception, hint: { mechanism: mechanism }).tap do |event|
-          env[ERROR_EVENT_ID_KEY] = event.event_id if event
+          env[ERROR_EVENT_ID_KEY] = event.event_id if event.respond_to?(:event_id)
         end
       end
 
