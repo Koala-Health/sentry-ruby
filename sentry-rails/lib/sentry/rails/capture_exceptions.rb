@@ -30,7 +30,7 @@ module Sentry
         return if show_exceptions?(exception, env) && !Sentry.configuration.rails.report_rescued_exceptions
 
         Sentry::Rails.capture_exception(exception).tap do |event|
-          env[ERROR_EVENT_ID_KEY] = event.event_id if event
+          env[ERROR_EVENT_ID_KEY] = event.event_id if event.respond_to?(:event_id)
         end
       end
 
